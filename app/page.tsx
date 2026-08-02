@@ -33,9 +33,9 @@ label: "Tutti gli account utilizzano l'Autenticazione a Due Fattori (MFA/2FA)",
         solution: "🔑 Standardizzare l'MFA Obbligatoria: Estendere l'autenticazione a due fattori a TUTTI gli account (email, gestionali, VPN) eliminando eccezioni." 
       },
       { 
-        label: 'Usiamo solo password semplici / credenziali condivise', 
+        label: "Usiamo solo password semplici / credenziali condivise", 
         score: 20,
-        solution: '🚨 Azione Immediata MFA: L'assenza di MFA è la prima causa di violazione aziendale. Abilitare immediatamente l'MFA tramite App Authenticator su tutta la struttura.' 
+        solution: "🚨 Azione Immediata MFA: L'assenza di MFA è la prima causa di violazione aziendale. Abilitare immediatamente l'MFA tramite App Authenticator su tutta la struttura." 
       },
     ]
   },
