@@ -28,9 +28,9 @@ label: "Tutti gli account utilizzano l'Autenticazione a Due Fattori (MFA/2FA)",
         score: 0 
       },
       { 
-        label: 'L'MFA è attiva solo per alcuni account/utenti', 
+        label: "L'MFA è attiva solo per alcuni account/utenti", 
         score: 10,
-        solution: '🔑 Standardizzare l'MFA Obbligatoria: Estendere l'autenticazione a due fattori a TUTTI gli account (email, gestionali, VPN) eliminando eccezioni.' 
+        solution: "🔑 Standardizzare l'MFA Obbligatoria: Estendere l'autenticazione a due fattori a TUTTI gli account (email, gestionali, VPN) eliminando eccezioni." 
       },
       { 
         label: 'Usiamo solo password semplici / credenziali condivise', 
