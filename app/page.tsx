@@ -20,10 +20,11 @@ const questions: Question[] = [
   {
     id: 'mfa',
     title: '1. Controllo Accessi & Autenticazione',
-    question: 'Come gestite l'accesso alle email e ai software gestionali aziendali?',
+   question: "Come gestite l'accesso alle email e ai software gestionali aziendali?",
+label: "Tutti gli account utilizzano l'Autenticazione a Due Fattori (MFA/2FA)",
     options: [
       { 
-        label: 'Tutti gli account utilizzano l'Autenticazione a Due Fattori (MFA/2FA)', 
+        label: "Tutti gli account utilizzano l'Autenticazione a Due Fattori (MFA/2FA)", 
         score: 0 
       },
       { 
