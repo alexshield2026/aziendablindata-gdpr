@@ -1,6 +1,7 @@
 'use client';
+
 import React, { useState } from 'react';
-import { ShieldCheck, ShieldAlert, AlertTriangle, ArrowRight, BookOpen, RotateCcw, CheckCircle2, Lock } from 'lucide-react';
+import { ShieldCheck, ShieldAlert, ArrowRight, RotateCcw, Lock, AlertCircle } from 'lucide-react';
 
 interface Option {
   label: string;
@@ -49,7 +50,7 @@ const questions: Question[] = [
       { 
         label: "Backup automatico presente, ma mai testato il ripristino dei dati", 
         score: 10,
-        solution: "💾 Test di Ripristino Dati: Pianificare simulazioni periodiche di Disaster Recovery per verificare la reale integrità dei backup." 
+        solution: "💾 Test di Ripristino Dati: Pianificare simulazioni periodiche di Disaster Recovery per verificarne la reale integrità." 
       },
       { 
         label: "Nessun backup automatico o salvataggi saltuari su supporto fisico", 
@@ -95,6 +96,21 @@ export default function Assessment() {
 
   const totalScore = calculateScore();
 
+  // Raccoglie tutte le soluzioni applicabili in base alle risposte selezionate
+  const getSolutions = () => {
+    const list: string[] = [];
+    questions.forEach(q => {
+      const selectedScore = answers[q.id];
+      const selectedOption = q.options.find(opt => opt.score === selectedScore);
+      if (selectedOption && selectedOption.solution) {
+        list.push(selectedOption.solution);
+      }
+    });
+    return list;
+  };
+
+  const activeSolutions = getSolutions();
+
   return (
     <main className="max-w-4xl mx-auto px-4 py-12">
       <header className="text-center mb-12">
@@ -134,33 +150,53 @@ export default function Assessment() {
           <button
             onClick={() => setSubmitted(true)}
             disabled={Object.keys(answers).length < questions.length}
-            className="w-full py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium disabled:opacity-50 transition-all flex items-center justify-center gap-2 text-lg"
+            className="w-full py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium disabled:opacity-50 transition-all flex items-center justify-center gap-2 text-lg cursor-pointer"
           >
             Visualizza Risultati <ArrowRight className="w-5 h-5" />
           </button>
         </div>
       ) : (
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 text-center space-y-6">
-          <div className="inline-flex p-4 rounded-full bg-blue-500/10 border border-blue-500/20 mb-2">
-            {totalScore === 0 ? (
-              <ShieldCheck className="w-16 h-16 text-emerald-400" />
-            ) : (
-              <ShieldAlert className="w-16 h-16 text-amber-400" />
-            )}
+        <div className="space-y-8">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 text-center space-y-6">
+            <div className="inline-flex p-4 rounded-full bg-blue-500/10 border border-blue-500/20 mb-2">
+              {totalScore === 0 ? (
+                <ShieldCheck className="w-16 h-16 text-emerald-400" />
+              ) : (
+                <ShieldAlert className="w-16 h-16 text-amber-400" />
+              )}
+            </div>
+            <h2 className="text-3xl font-bold text-white">Rischio Calcolato: {totalScore} Punti</h2>
+            <p className="text-slate-400 max-w-md mx-auto">
+              {totalScore === 0
+                ? "Eccellente! La tua azienda rispetta i più alti standard di sicurezza e conformità."
+                : "Sono state individuate alcune criticità. Di seguito trovi le azioni correttive consigliate."}
+            </p>
           </div>
-          <h2 className="text-3xl font-bold text-white">Rischio Calcolato: {totalScore} Punti</h2>
-          <p className="text-slate-400 max-w-md mx-auto">
-            {totalScore === 0
-              ? "Ottimo lavoro! La tua azienda rispetta le migliori pratiche di sicurezza informatica."
-              : "Sono state rilevate delle criticità. Rivedi le raccomandazioni di sicurezza proposte."}
-          </p>
 
-          <button
-            onClick={() => { setAnswers({}); setSubmitted(false); }}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-sm transition-all"
-          >
-            <RotateCcw className="w-4 h-4" /> Ripeti il Test
-          </button>
+          {/* Sezione Soluzioni Correttive */}
+          {activeSolutions.length > 0 && (
+            <div className="bg-slate-900 border border-amber-500/30 rounded-2xl p-6">
+              <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+                <AlertCircle className="w-5 h-5 text-amber-400" /> Soluzioni Consigliate per la tua Azienda
+              </h3>
+              <div className="space-y-3">
+                {activeSolutions.map((sol, index) => (
+                  <div key={index} className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 text-slate-200">
+                    {sol}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="text-center">
+            <button
+              onClick={() => { setAnswers({}); setSubmitted(false); }}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-sm transition-all cursor-pointer"
+            >
+              <RotateCcw className="w-4 h-4" /> Ripeti il Test
+            </button>
+          </div>
         </div>
       )}
     </main>
