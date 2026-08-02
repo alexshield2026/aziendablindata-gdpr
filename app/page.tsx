@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import { ShieldCheck, ShieldAlert, AlertTriangle, ArrowRight, BookOpen, RotateCcw, CheckCircle2, Lock } from 'lucide-react';
 
